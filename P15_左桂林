@@ -1,0 +1,44 @@
+#删除用户信息
+def _delete(user):
+    name=input('请输入用户名：')
+    try:
+        user.pop(name)
+    except KeyError:
+        print('不存在')
+#更新用户信息
+def _update(user):
+    name=input('请输入（用户名:年龄:联系方式）：')
+    lst=name.split(':')
+    try:
+        user[lst[0]]
+        user[lst[0]]=lst[1:]
+    except KeyError:
+        print('不存在')
+#查找用户信息
+def _find(user):
+    name=input('请输入用户名：')
+    try:
+        print('input:{0}\nAge:{1}\nMobile:{2}'.format(name,user[name][0],user[name][1]))
+    except KeyError:
+        print('不存在')
+#获取所有用户信息
+def _list(user):
+    print('{0:<11}{1:<11}{2:<11}'.format('UserName','Age','Mobile'))
+    for k,v in user.items():
+        print('{0:<11}{1:<11}{2:<11}'.format(k,v[0],v[1]))
+def _exit(_):
+    print('退出程序')
+
+usermanage={'delete':_delete,'update':_update,'find':_find,'list':_list,'exit':_exit}
+user={'Tom':[23,'13511111111'],
+      'Jerry':[26,'15155555555'],
+      'David':[29,'13433333333']
+      }
+while True:
+    order=input('>>>')
+    try:
+        usermanage[order](user)
+    except KeyError:
+        print('无效命令,请输入：{}'.format(list(usermanage.keys())))
+    if order=='exit':
+        break
